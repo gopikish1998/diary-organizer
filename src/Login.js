@@ -5,40 +5,38 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import {Link} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import env from './Settings'
+import { useHistory } from 'react-router-dom';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
 function Login() {
-  const handleSubmit = (event) => {
+  const [email,setEmail]=React.useState()
+  const [password, setPassword] = React.useState()
+  const history=useHistory()
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const { data } = await axios.post(`${env.api}/login`, { email, password })
+      window.localStorage.setItem('diary-user', (data.token))
+      window.location.reload()
+      history.push('/')
+    } catch (error) {
+      alert('error occured')
+    }
   };
-
+React.useEffect(() => {
+  window.localStorage.getItem('diary-user')?history.push('/'):<></>
+}, [])
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -66,6 +64,8 @@ function Login() {
               id="email"
               label="Email Address"
               name="email"
+              value={email}
+              onChange={e=>setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -74,6 +74,8 @@ function Login() {
               required
               fullWidth
               name="password"
+              value={password}
+              onChange={e=>setPassword(e.target.value)}
               label="Password"
               type="password"
               id="password"
@@ -88,17 +90,18 @@ function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to='/forgot'>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to='/register'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

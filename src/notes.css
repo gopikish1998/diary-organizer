@@ -8,7 +8,7 @@ body {
   background-color: #f3f3f3;
 }
 
-.quill .ql-editor {
+.ql-container .ql-editor {
   width: 8.5in;
   height: 5.5in;
   /* min-height: 11in; */
@@ -16,13 +16,13 @@ body {
 }
 
 @media screen and (max-width: 860px) and (min-width: 450px) {
-  .quill .ql-editor {
+  .ql-container .ql-editor {
     width: 4in;
     height: 5in;
   }
 }
 @media screen and (max-width: 450px) and (min-width: 100px) {
-  .quill .ql-editor {
+  .ql-container .ql-editor {
     width: 3in;
     /* height: 100%; */
   }

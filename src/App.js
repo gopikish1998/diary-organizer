@@ -5,15 +5,24 @@ import Login from './Login';
 import Reset from './Reset';
 import Homepage from './Homepage';
 import Notes from './Notes';
+import Forgot from './Forgot'
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import NoteEdit from './NoteEdit';
+import Appbar from './Appbar';
+import Events from './Events';
 function App() {
   return (
     <Router>
-      <Homepage/>
+      <Appbar/>
       <Switch>
         <Route component={Notes} exact path={'/notes'}/>
+        <Route component={Events} exact path={'/events'}/>
+        <Route component={NoteEdit} exact path={'/notes/:id'}/>
         <Route component={Homepage} exact path={'/'}/>
-        {/* <Route component={Notes} exact path={'/notes'}/> */}
+        <Route component={Login} exact path={'/login'}/>
+        <Route component={Reset} exact path={'/reset'}/>
+        <Route component={Forgot} exact path={'/forgot'}/>
+        <Route component={Register} exact path={'/register'}/>
       </Switch>
     </Router>
     

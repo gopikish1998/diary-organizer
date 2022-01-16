@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -11,49 +11,50 @@ import './notes.css'
 import axios from 'axios';
 import env from './Settings'
 import { DateTimePicker } from '@mui/lab';
-export default function Notes() {
-    const [value, setValue] = useState(null);
+function NoteEdit(props) {
+    const [date, setDate] = useState(null);
+    const [note, setNote] = useState([])
     const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [description, setDescription] = useState('')
     const [quill, setQuill] = useState(``)
     const [quill2, setQuill2] = useState(``)
-    // const data = new Delta()
-    // const wrapperRef = useCallback(wrapper => {
-    //     if (wrapper == null) return;
+    useEffect(async () => {
+        const {data} = await axios.get(`${env.api}/note/${props.match.params.id}`,{
+        headers : {
+            "Authorization" : window.localStorage.getItem("diary-user")
+        }
+        }) 
+    console.log(data)
+        setNote(data)
+        setDescription(data.description)
+        setDate(data.date)
+    }, [])
 
-    //     wrapper.innerHTML = ` `
-    //     const editor = document.createElement('div')
-    //     console.log(wrapper.current)
-    //     wrapper.append(editor)
-    //     var quill1 = new Quill(editor, {theme:'snow'})
-    //     setQuill(quill1)},    
-    // [])
-    // setQuill2()
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { data } = await axios.post(`${env.api}/addnote`, { description: quill, date: value, title },{
+        const { data } = await axios.put(`${env.api}/editnote/${props.match.params.id}`, { description, date },{
         headers : {
             "Authorization" : window.localStorage.getItem("diary-user")
         }
         })
+        console.log(data)
     }
-        
-  return (
-      <div className='container mt-4 d-flex justify-content-center align-items-center flex-column'><h1>ADD NOTE</h1>
-          <TextField id="outlined-basic" label="Title" variant="outlined" value={title} onChange={e=> setTitle(e.target.value)}/>
+    return (
+      <div className='container mt-4 d-flex justify-content-center align-items-center flex-column'>
           <LocalizationProvider dateAdapter={DateAdapter}>
             <DateTimePicker
                 label="Select the date"
-                value={value}
+                value={date}
                 onChange={(newValue) => {
-                setValue(newValue);
+                setDate(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
           <br />
           <Box sx={{
-        display: 'flex',
+                display: 'flex',
+              flexDirection:'column',
         flexWrap: 'wrap',
         '& > :not(style)': {
           m: 1,
@@ -62,7 +63,7 @@ export default function Notes() {
         },
           }}>
               <Paper>
-                  <ReactQuill defaultValue={quill} onChange={(e) => { setQuill(e)}}/>
+                    <ReactQuill value={description} onChange={(e) => { setDescription(e); setQuill(e); console.log(description)}}/>
                   {/* <div id='editor' ref={wrapperRef}></div> */}
               </Paper>
               <Button onClick={handleSubmit}>Submit</Button>
@@ -70,3 +71,5 @@ export default function Notes() {
     </div>
   );
 }
+
+export default NoteEdit
