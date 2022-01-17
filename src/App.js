@@ -11,6 +11,7 @@ import NoteEdit from './NoteEdit';
 import Appbar from './Appbar';
 import Events from './Events';
 import EventEdit from './EventEdit'
+import './App.css'
 function App() {
   return (
     <Router>

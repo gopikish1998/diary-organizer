@@ -38,5 +38,7 @@
 }
 
 .card :hover {
-  transition: scale(1.1);
+  transform: scale(1.01);
+  transition: all 10ms;
+  color: #1e168d;
 }

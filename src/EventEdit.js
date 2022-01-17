@@ -45,19 +45,21 @@ function EventEdit(props) {
     }
     return (
         <div className='container mt-4 d-flex justify-content-center align-items-center flex-column p-3'><h1>ADD EVENT</h1>
-          <TextField id="outlined-basic" sx={{margin:3,}} label="Title" variant="outlined" value={event} onChange={e=> setEvent(e.target.value)}/>
-            <LocalizationProvider dateAdapter={DateAdapter}>
+          <TextField id="outlined-basic" sx={{margin:3,backgroundColor:'white'}} label="Title" variant="outlined" value={event} onChange={e=> setEvent(e.target.value)}/>
+            <Box sx={{margin:3,backgroundColor:'white'}}>
+                <LocalizationProvider  dateAdapter={DateAdapter}>
             <DateTimePicker 
                 label="Select the date"
                 value={date}
                 onChange={(newValue) => {
                 setDate(newValue);
-                }}
+                    }}
                 renderInput={(params) => <TextField {...params} />}
             />
             </LocalizationProvider>
-          <TextField id="outlined-basic" sx={{margin:3,}} label="Description" multiline maxRows={5} variant="outlined" fullWidth value={description} onChange={e=> setDescription(e.target.value)}/>
-           <button className='btn btn-primary' onClick={handleSubmit}>Submit</button> 
+            </Box>
+          <TextField id="outlined-basic" sx={{margin:3,backgroundColor:'white'}} label="Description" multiline maxRows={5} variant="outlined" fullWidth value={description} onChange={e=> setDescription(e.target.value)}/>
+           <button className='btn btn-primary p-3' onClick={handleSubmit}>Submit</button> 
         </div>
     )
 }

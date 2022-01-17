@@ -1,23 +1,9 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { CalendarToday } from '@mui/icons-material';
-import { Paper, TextareaAutosize } from '@mui/material';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import env from './Settings'
-import './App.css'
+
 
 function Homepage() {
     
@@ -79,12 +65,12 @@ function Homepage() {
         <div className="container mt-4"><h1>NOTES</h1><Link to='/notes' className='btn btn-success'>ADD NOTES</Link>
           <div className='row'>
             {notes?.map((note)=>{return(
-              <div className='col col-lg-4 mt-4'>
+              <div className='col col-lg-4 mt-4 card'>
                 <Link to={`/notes/${note._id}`} style={{ textDecoration: 'none' }}><Box sx={{ height: '100px', color:'black' }}>
                   {/* <Paper>{`${note.title} ______ ${new Date(note.date).getDate()}/${new Date(note.date).getMonth() + 1}/${new Date(note.date).getFullYear()}`}
                 {`---- ${new Date(note.date).getHours()}:${new Date(note.date).getMinutes()}hrs`}
                 </Paper> */}
-                  <div className="card">
+                  <div>
                     {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                     <div className="card-body">
                       <h5 className="card-title">Title: {note.title}</h5>
@@ -92,29 +78,29 @@ function Homepage() {
                     </div>
                   </div>
 
-                </Box></Link><button className='btn btn-danger mt-3' onClick={e => handleDelete(e, note._id)}>Delete</button>
+                </Box></Link><button className='btn btn-danger mt-3 mb-3' onClick={e => handleDelete(e, note._id)}>Delete</button>
                 
             </div>
             
             )})}
           </div>
         </div>
-        <div className="container mt-4"><h1>EVENTS</h1><Link to='/events' className='btn btn-success'>ADD EVENTS</Link>
+        <div className="container mt-4 mb-4"><h1>EVENTS</h1><Link to='/events' className='btn btn-success'>ADD EVENTS</Link>
           <div className='row'>
             {events?.map((event)=>{return(
-              <div className='col col-lg-4 mt-4'>
+              <div className='col col-lg-4 mt-4 card'>
                 <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:'black' }}>
                   {/* <Paper>{`${event.event} <br/>${new Date(event.date).getDate()}/${new Date(event.date).getMonth() + 1}/${new Date(event.date).getFullYear()}`}
                 {`---- ${new Date(event.date).getHours()}:${new Date(event.date).getMinutes()}hrs`}
                   </Paper> */}
-                  <div className="card">
+                  <div >
                     {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                     <div className="card-body">
                       <h5 className="card-title">Title: {event.event}</h5>
                       <p className="card-text">Time:{ new Date(event.date).toString()}</p>
                     </div>
                   </div>
-                </Link><button className='btn btn-danger' onClick={e => handleDelete2(e, event._id)}>Delete</button>
+                </Link><button className='btn btn-danger mb-3' onClick={e => handleDelete2(e, event._id)}>Delete</button>
             </div>
             )})}
           </div>
