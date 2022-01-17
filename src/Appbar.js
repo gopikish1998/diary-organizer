@@ -125,16 +125,16 @@ function Appbar() {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Home
-                        </Button>
-                        <Button
-                
+              </Button>
+              <Button
+      
                 onClick={e=>{history.push('/notes')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Notes
-                        </Button>
-                        <Button
-                
+              </Button>
+              <Button
+      
                 onClick={e=>{history.push('/events')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >

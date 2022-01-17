@@ -11,12 +11,14 @@ import './notes.css'
 import axios from 'axios';
 import env from './Settings'
 import { DateTimePicker } from '@mui/lab';
+import { useHistory } from 'react-router-dom';
 export default function Notes() {
     const [value, setValue] = useState(null);
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [quill, setQuill] = useState(``)
     const [quill2, setQuill2] = useState(``)
+    const history = useHistory()
     // const data = new Delta()
     // const wrapperRef = useCallback(wrapper => {
     //     if (wrapper == null) return;
@@ -36,11 +38,12 @@ export default function Notes() {
             "Authorization" : window.localStorage.getItem("diary-user")
         }
         })
+      history.push('/')
     }
         
   return (
       <div className='container mt-4 d-flex justify-content-center align-items-center flex-column'><h1>ADD NOTE</h1>
-          <TextField id="outlined-basic" label="Title" variant="outlined" value={title} onChange={e=> setTitle(e.target.value)}/>
+          <TextField sx={{margin:'10px'}} id="outlined-basic" label="Title" variant="outlined" value={title} onChange={e=> setTitle(e.target.value)}/>
           <LocalizationProvider dateAdapter={DateAdapter}>
             <DateTimePicker
                 label="Select the date"
@@ -55,6 +58,8 @@ export default function Notes() {
           <Box sx={{
         display: 'flex',
         flexWrap: 'wrap',
+        justifyContent:'center',
+        flexDirection:'column',
         '& > :not(style)': {
           m: 1,
         //   width: 600,
@@ -65,7 +70,7 @@ export default function Notes() {
                   <ReactQuill defaultValue={quill} onChange={(e) => { setQuill(e)}}/>
                   {/* <div id='editor' ref={wrapperRef}></div> */}
               </Paper>
-              <Button onClick={handleSubmit}>Submit</Button>
+              <Button variant={'filled'} sx={{backgroundColor:'blue',color:'white', width:'100px'}}  onClick={handleSubmit}>Submit</Button>
           </Box>
     </div>
   );

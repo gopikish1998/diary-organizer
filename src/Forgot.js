@@ -66,7 +66,8 @@ function Forgot() {
                 />
               </Grid> */}
                         </Grid>
-                        <Button
+                        <Grid>
+                            <Button
                             type="submit"
                             fullWidth
                             onClick={handleSubmit}
@@ -75,6 +76,7 @@ function Forgot() {
                         >
                             Submit
                         </Button>
+                        </Grid>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
