@@ -118,15 +118,29 @@ function Appbar() {
             ORGANIZE
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            
               <Button
-                key={page}
-                onClick={e=>handleCloseNavMenu()}
+                
+                onClick={e=>{history.push('/')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                Home
+                        </Button>
+                        <Button
+                
+                onClick={e=>{history.push('/notes')}}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Notes
+                        </Button>
+                        <Button
+                
+                onClick={e=>{history.push('/events')}}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Events
               </Button>
-            ))}
+     
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
